@@ -16,3 +16,6 @@ class App
     end
   end
 end
+
+snake = App.new
+snake.start

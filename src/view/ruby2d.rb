@@ -1,5 +1,7 @@
 
+require 'byebug'
 require 'ruby2d'
+
 module View
   class Ruby2dView
     def initialize
@@ -24,7 +26,7 @@ module View
       food = state.food
       Square.new(
         x: food.col * @pixel_size,
-        y: food.col * @pixel_size,
+        y: food.row * @pixel_size,
         size: @pixel_size,
         color: 'yellow'
       )
@@ -36,7 +38,7 @@ module View
       snake.positions.each do |pos|
         Square.new(
           x: pos.col * @pixel_size,
-          y: pos.col * @pixel_size,
+          y: pos.row * @pixel_size,
           size: @pixel_size,
           color: 'green'
         )
