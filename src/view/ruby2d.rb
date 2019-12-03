@@ -1,11 +1,12 @@
 
-require 'byebug'
 require 'ruby2d'
+require_relative '../model/state'
 
 module View
   class Ruby2dView
-    def initialize
+    def initialize(app)
       @pixel_size = 50
+      @app = app
     end
 
     def start(state)
@@ -14,6 +15,11 @@ module View
         title: 'Snake',
         width: @pixel_size * state.grid.cols,
         height: @pixel_size * state.grid.rows)
+      on :key_down do |event|
+          # A key was pressed
+          # puts event.key
+          handle_key_event(event)
+        end
       show
     end
 
@@ -48,6 +54,23 @@ module View
           size: @pixel_size,
           color: 'green'
         )
+      end
+    end
+
+    def handle_key_event(event)
+      case event.key
+      when "up"
+        # Cambiar Direccion hacia arriba
+        @app.send_action(:change_direction, Model::Direction::UP)
+      when "down"
+        # Cambiar direcciones hacia abajo
+        @app.send_action(:change_direction, Model::Direction::DOWN)
+      when "right"
+        # Cambiar direcciones hacia derecha
+        @app.send_action(:change_direction, Model::Direction::RIGHT)
+      when "left"
+        # Cambiar direcciones hacia izquierda
+        @app.send_action(:change_direction, Model::Direction::LEFT)
       end
     end
   end
